@@ -1,0 +1,59 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 202604251001,
+      "steps": 28,
+      "cfg": 7.0,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": ["4", 0],
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    }
+  },
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "DreamShaperXL1.0Alpha2_fixedVae_half_00001_.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "batch_size": 1
+    }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "Single centered bald human head front-facing portrait, EXACTLY ONE subject, clean vector illustration style, flat 2D art, cel shaded, solid color blocks, bold black outlines, comic book style, sports card art, stylized face, no 3D, no realism, no photographic texture, no skin pores, no depth of field, clean crisp edges, smooth flat skin tones, front view only, isolated on pure white background, high quality illustration",
+      "clip": ["4", 1]
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "photorealistic, realistic, 3D render, photograph, skin texture, pores, wrinkles, detailed shading, volumetric lighting, depth, oil painting, watercolor, blurry, low quality, multiple heads, duplicate face, second head, mini heads, lineup, contact sheet, side view, three-quarter view, hair, beard, mustache, helmet, hat, glasses, sunglasses, shoulders, torso, jersey, clothing, body, text, watermark",
+      "clip": ["4", 1]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["3", 0],
+      "vae": ["4", 2]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "gridiron/player_layers/semi_realistic/head_base",
+      "images": ["8", 0]
+    }
+  }
+}
